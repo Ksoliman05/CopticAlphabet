@@ -360,7 +360,7 @@ var SLIDES = [
     words: [
       ["ⲧⲱⲛⲕ", "Tonk", "arise"],
       ["ⲓⲱⲧ", "Yot", "father"],
-      ["ⲛⲓⲓⲟϯ", "Ni-yo-ti", "the fathers"],
+      ["ⲛⲉⲛⲓⲱϯ", "Nen-yo-ti", "our fathers"],
       ["ⲕⲟⲥⲙⲟⲥ", "Koz-mos", "world"],
       ["ⲭ̀ⲣⲓⲥⲧⲓⲁⲛⲟⲥ", "Ekh-ris-ti-a-nos", "Christian"],
       ["ⲭⲏⲙⲓ", "Kee-mi", "Egypt"],
