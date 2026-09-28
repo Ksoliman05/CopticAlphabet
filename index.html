@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Coptic Alphabet Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Manjari:wght@400;700&display=swap">
+<style>
+[hidden]{display:none!important}
+:root{--ink:#40474B;--brown:#806860;--terra:#C8A591;--sage:#A0A299;--cream:#EDECDF;--frame:#2B2F31;--frame-ink:#E9E6DD;color-scheme:dark}
+html,body{height:100%;margin:0;background:var(--frame);overflow:hidden}
+body{font-family:Manjari,"Segoe UI",Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#viewport{position:fixed;inset:0;display:grid;place-items:center;touch-action:pan-y}
+#stage{position:relative;width:1000px;height:562.5px;flex:none;transform-origin:center center;background:#fff center/cover no-repeat;box-shadow:0 10px 40px rgba(0,0,0,.35);overflow:hidden}
+.slide{position:absolute;inset:0}
+.slide.enter{animation:enter .38s cubic-bezier(.2,.7,.2,1) both}
+.slide.enter.back{animation-name:enterBack}
+@keyframes enter{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+@keyframes enterBack{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.el{position:absolute;box-sizing:border-box}
+.txt{display:flex;flex-direction:column;padding:3px 4px;line-height:1.18}
+.txt p{margin:0;white-space:pre-wrap;overflow-wrap:break-word}
+.h{font-family:"Hammersmith One","Trebuchet MS",Arial,sans-serif}
+.b{font-family:Manjari,"Segoe UI",Arial,sans-serif}
+.c{font-family:"CS Avva Shenouda",serif;font-weight:400;font-style:normal}
+.card{box-shadow:0 1.5px 3px rgba(64,71,75,.22)}
+.arrow{clip-path:polygon(0 25%,55% 25%,55% 0,100% 50%,55% 100%,55% 75%,0 75%)}
+.pic img{width:100%;height:100%;object-fit:contain;display:block}
+.frag{opacity:0;transition:opacity .4s ease}
+.frag.on{opacity:1}
+.frag.exit{opacity:1}
+.frag.exit.on{opacity:0}
+#bar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;gap:4px;align-items:center;padding:6px;border-radius:999px;background:rgba(30,33,35,.85);color:var(--frame-ink);font:600 13px/1 Manjari,"Segoe UI",Arial,sans-serif;transition:opacity .3s;z-index:5;white-space:nowrap}
+body.idle #bar{opacity:0;pointer-events:none}
+body.idle{cursor:none}
+#bar button{all:unset;cursor:pointer;min-width:34px;height:34px;padding:0 10px;border-radius:999px;display:grid;place-items:center;box-sizing:border-box}
+#bar button:hover{background:rgba(255,255,255,.12)}
+#bar button:focus-visible{outline:2px solid var(--terra);outline-offset:1px}
+#count{padding:0 8px;font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
+#progress{position:fixed;left:0;bottom:0;height:3px;background:var(--terra);transition:width .3s;z-index:4}
+#toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:#fff;color:var(--ink);padding:10px 16px;border-radius:10px;font:15px/1.3 Manjari,"Segoe UI",Arial,sans-serif;box-shadow:0 6px 24px rgba(0,0,0,.3);z-index:20;max-width:min(90vw,520px);text-align:center}
+#menu{position:fixed;inset:0;background:rgba(24,26,27,.72);display:grid;place-items:center;z-index:10;padding:16px}
+#menu .panel{background:#fff;color:var(--ink);border-radius:14px;max-width:560px;width:100%;max-height:86vh;overflow:auto;padding:22px 22px 18px;box-sizing:border-box}
+#menu h2{font:400 26px/1.1 "Hammersmith One",Arial,sans-serif;margin:0 0 4px;color:var(--brown)}
+#menu .hint{font-size:13px;color:#6f6f6f;margin:0 0 14px}
+#menu ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+#menu a{display:flex;justify-content:space-between;gap:12px;padding:8px 10px;border-radius:8px;color:inherit;text-decoration:none;font-size:15px}
+#menu a:hover,#menu a:focus-visible{background:var(--cream);outline:none}
+#menu a.l0{font:400 18px/1.2 "Hammersmith One",Arial,sans-serif;margin-top:8px}
+#menu a.l0 small{font:400 13px Manjari,Arial,sans-serif;color:var(--brown)}
+#menu a.l1{padding-left:26px}
+#menu a .num{color:#8a8a8a;font-variant-numeric:tabular-nums;font-size:13px}
+#menu a.cur{background:var(--cream)}
+#error{position:fixed;inset:0;display:grid;place-items:center;padding:16px;z-index:30;background:var(--frame)}
+#error div{background:#fff;border-radius:14px;max-width:560px;padding:24px;font:16px/1.45 Manjari,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+#error h2{font:400 24px "Hammersmith One",Arial,sans-serif;color:var(--brown);margin:0 0 8px}
+@media (prefers-reduced-motion:reduce){.slide.enter{animation:none}.frag{transition:none}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage" role="region" aria-roledescription="slideshow" aria-live="polite"></div></div>
+<div id="progress"></div>
+<nav id="bar" aria-label="Slide controls">
+  <button id="prev" aria-label="Previous" title="Previous (←)">&#8592;</button>
+  <span id="count">…</span>
+  <button id="next" aria-label="Next" title="Next (→ or Space)">&#8594;</button>
+  <button id="menuBtn" title="Lessons (M)">Lessons</button>
+  <button id="fsBtn" title="Full screen (F)">Full screen</button>
+  <button id="pptBtn" title="Download this deck as a PowerPoint file">Download PowerPoint</button>
+</nav>
+<div id="toast" role="status" hidden></div>
+<div id="menu" hidden><div class="panel" role="dialog" aria-label="Jump to a lesson">
+  <h2>Jump to</h2><p class="hint">→ or Space: next · ←: back · M: this menu · F: full screen</p>
+  <ol id="outline"></ol>
+</div></div>
+<div id="error" hidden><div><h2>Something in slides.js needs fixing</h2><p id="errorText"></p></div></div>
+
+<script src="slides.js"></script>
+<script src="assets/fonts.js"></script>
+<script src="assets/core.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
