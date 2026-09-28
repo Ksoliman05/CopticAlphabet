@@ -114,7 +114,18 @@ var SLIDES = [
       { when: "In other words, before a vowel, it is V", examples: [["ⲃⲁⲕⲓ", "Va-ki (city)"]] },
       { when: "In other words, before a consonant or at the end, it is B", examples: [["ⲉⲑⲟⲩⲁⲃ", "E-tho-wab (holy)"]] }
     ] },
-  { type: "image", title: "Practice: Vita", image: "assets/practice-vita.png" },
+  { type: "exercise", title: "Practice: Vita",
+    prompt: "V or B? Read each word, then click to check.",
+    words: [
+      ["ϩⲱⲃ", "Hob", "thing"],
+      ["ⲃⲁⲗ", "Val", "eye"],
+      ["ⲛⲟⲃⲓ", "No-vi", "sin"],
+      ["ⲛ̀ⲛⲟⲩⲃ", "En-noub", "the gold"],
+      ["ⲃⲱϩⲉⲙ", "Vo-hem"],
+      ["ⲗⲱⲃϣ", "Lobsh"],
+      ["ⲉ̀ⲃⲟⲗ", "E-vol", "out"],
+      ["ⲛⲓⲃⲉⲛ", "Ni-ven", "every"]
+    ] },
   { type: "letter",
     letter: "Ey",
     sound: "**E** (as in p_e_n or l_e_g)",

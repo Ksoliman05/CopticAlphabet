@@ -93,6 +93,7 @@
   function gridDims(n) {
     if (n <= 4) return n === 4 ? [2, 2] : [n, 1];
     if (n <= 6) return [3, 2];
+    if (n <= 8) return [4, 2];
     if (n <= 9) return [3, 3];
     if (n <= 12) return [4, 3];
     return [4, 4];
