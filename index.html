@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Coptic Alphabet Lessons</title>
+<meta name="theme-color" content="#2B2F31">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Coptic">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hammersmith+One&family=Manjari:wght@400;700&display=swap">
@@ -57,8 +64,19 @@ body.idle{cursor:none}
 #error div{background:#fff;border-radius:14px;max-width:560px;padding:24px;font:16px/1.45 Manjari,"Segoe UI",Arial,sans-serif;color:var(--ink)}
 #error h2{font:400 24px "Hammersmith One",Arial,sans-serif;color:var(--brown);margin:0 0 8px}
 #turn{display:none}
-@media (max-width:640px){#bar{gap:0;padding:4px;font-size:12px}#bar button{padding:0 8px}#bar #fsBtn,#bar #pptBtn{display:none}#count{min-width:52px;padding:0 4px}}
+.sm{display:none}
+@media (max-width:640px){#bar{gap:0;padding:4px;font-size:12px}#bar button{padding:0 8px}#bar #pptBtn{display:none}#bar .lg{display:none}#bar .sm{display:inline}#count{min-width:52px;padding:0 4px}}
 @media (orientation:portrait) and (max-width:700px){#turn{display:block;position:fixed;left:0;right:0;top:calc(50% + 28.2vw + 14px);text-align:center;color:var(--frame-ink);opacity:.75;font:14px/1.3 Manjari,"Segoe UI",Arial,sans-serif;padding:0 16px}}
+/* phone held sideways: controls move into the empty strip beside the slide */
+@media (orientation:landscape) and (max-height:500px){
+  #bar{left:auto;right:calc(6px + env(safe-area-inset-right,0px));top:50%;bottom:auto;transform:translateY(-50%);flex-direction:column;gap:2px;padding:4px;border-radius:24px;font-size:11px}
+  #bar button{min-width:40px;height:40px;padding:0;font-size:17px}
+  #bar #pptBtn{display:none}
+  #bar .lg{display:none}#bar .sm{display:inline}
+  #count{min-width:0;padding:4px 0;font-size:11px;white-space:normal;text-align:center;line-height:1.2}
+  body.idle #bar{opacity:1;pointer-events:auto}
+  #progress{height:2px}
+}
 @media (prefers-reduced-motion:reduce){.slide.enter{animation:none}.frag{transition:none}}
 </style>
 </head>
@@ -70,13 +88,14 @@ body.idle{cursor:none}
   <button id="prev" aria-label="Previous" title="Previous (←)">&#8592;</button>
   <span id="count">…</span>
   <button id="next" aria-label="Next" title="Next (→ or Space)">&#8594;</button>
-  <button id="menuBtn" title="Lessons (M)">Lessons</button>
-  <button id="fsBtn" title="Full screen (F)">Full screen</button>
+  <button id="menuBtn" title="Lessons (M)" aria-label="Lessons"><span class="lg">Lessons</span><span class="sm">&#9776;</span></button>
+  <button id="fsBtn" title="Full screen (F)" aria-label="Full screen"><span class="lg">Full screen</span><span class="sm">&#10530;</span></button>
   <button id="pptBtn" title="Download this deck as a PowerPoint file">Download PowerPoint</button>
 </nav>
 <div id="toast" role="status" hidden></div>
 <div id="menu" hidden><div class="panel" role="dialog" aria-label="Jump to a lesson">
   <h2>Jump to</h2><p class="hint">→ or Space: next · ←: back · M: this menu · F: full screen</p>
+  <p class="hint" id="iosHint" hidden>Full screen on iPhone: tap the Share button, then <b>Add to Home Screen</b>. Open it from the new icon on your home screen and it fills the whole screen.</p>
   <ol id="outline"></ol>
 </div></div>
 <div id="error" hidden><div><h2>Something in slides.js needs fixing</h2><p id="errorText"></p></div></div>

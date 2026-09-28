@@ -60,7 +60,11 @@
 
   /* ---------------------------------------------------------------- navigation */
   var cur = -1, step = 0;
-  function fit() { stage.style.transform = "translate(-50%, -50%) scale(" + Math.min(innerWidth / 1000, innerHeight / 562.5) + ")"; }
+  var sideBar = window.matchMedia ? matchMedia("(orientation: landscape) and (max-height: 500px)") : null;
+  function fit() {
+    var w = innerWidth - (sideBar && sideBar.matches ? 116 : 0);  // leave room for the side controls on phones
+    stage.style.transform = "translate(-50%, -50%) scale(" + Math.min(w / 1000, innerHeight / 562.5) + ")";
+  }
   addEventListener("resize", fit); fit();
   function setStep(el, n) {
     Array.prototype.forEach.call(el.querySelectorAll(".frag"), function (f) { f.classList.toggle("on", +f.getAttribute("data-f") <= n); });
@@ -144,6 +148,11 @@
 
   /* ---------------------------------------------------------------- controls */
   function btn(id, fn) { document.getElementById(id).addEventListener("click", function (e) { e.stopPropagation(); fn(); }); }
+  // Full screen only where the browser allows it (not on iPhone); iPhone users get Add to Home Screen instead
+  var d0 = document;
+  if (!(d0.fullscreenEnabled || d0.webkitFullscreenEnabled)) document.getElementById("fsBtn").hidden = true;
+  var standalone = (window.navigator.standalone === true) || (window.matchMedia && matchMedia("(display-mode: standalone), (display-mode: fullscreen)").matches);
+  if (/iPhone|iPod/.test(navigator.userAgent) && !standalone) document.getElementById("iosHint").hidden = false;
   btn("next", next); btn("prev", prev); btn("menuBtn", openMenu); btn("fsBtn", fullscreen); btn("pptBtn", download);
   document.addEventListener("keydown", function (e) {
     if (!menu.hidden) { if (e.key === "Escape" || e.key === "m" || e.key === "M") { closeMenu(); e.preventDefault(); } return; }
