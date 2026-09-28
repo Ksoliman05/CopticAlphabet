@@ -123,7 +123,7 @@ var SLIDES = [
       ["ⲛ̀ⲛⲟⲩⲃ", "En-noub", "the gold"],
       ["ⲃⲱϩⲉⲙ", "Vo-hem"],
       ["ⲗⲱⲃϣ", "Lobsh"],
-      ["ⲉ̀ⲃⲟⲗ", "E-vol", "out"],
+      ["ⲉ̀ⲃⲟⲗ", "E-vol"],
       ["ⲛⲓⲃⲉⲛ", "Ni-ven", "every"]
     ] },
   { type: "letter",
