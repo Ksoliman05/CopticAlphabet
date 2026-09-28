@@ -598,8 +598,7 @@ var SLIDES = [
     note: "Not used in words. It is the number 6.",
     words: [
       ["ⲋ", "Soo", "6"],
-      ["ⲓ̅ⲋ", "Yota + So-ou", "16 (10 + 6)"],
-      ["ⲕ̅ⲋ", "Kappa + So-ou", "26 (20 + 6)"]
+
     ] },
   { type: "exercise", title: "Exercise: Part 2",
     words: [
