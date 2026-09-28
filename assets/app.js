@@ -60,7 +60,7 @@
 
   /* ---------------------------------------------------------------- navigation */
   var cur = -1, step = 0;
-  function fit() { stage.style.transform = "scale(" + Math.min(innerWidth / 1000, innerHeight / 562.5) + ")"; }
+  function fit() { stage.style.transform = "translate(-50%, -50%) scale(" + Math.min(innerWidth / 1000, innerHeight / 562.5) + ")"; }
   addEventListener("resize", fit); fit();
   function setStep(el, n) {
     Array.prototype.forEach.call(el.querySelectorAll(".frag"), function (f) { f.classList.toggle("on", +f.getAttribute("data-f") <= n); });
